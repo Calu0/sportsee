@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Réinitialisation basique */
+body {
+  margin: 0;
+  font-family: "Roboto", system-ui, sans-serif;
+}
