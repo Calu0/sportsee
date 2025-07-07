@@ -49,7 +49,7 @@ const AverageSessionsChart = ({ data }) => {
         dayLetter: daysMap[session.day]
     }));
 
-    // Ajouter des points virtuels au début et à la fin pour étendre la courbe
+
     const extendedData = [
         { ...formattedData[0], dayLetter: '', sessionLength: formattedData[0].sessionLength },
         ...formattedData,

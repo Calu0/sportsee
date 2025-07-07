@@ -2,7 +2,7 @@ import { apiService } from './apiService';
 import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from './mockData';
 
 // Définir si on utilise les données mockées ou l'API
-const USE_MOCKED_DATA = false;
+const USE_MOCKED_DATA = true;
 
 
 
@@ -77,7 +77,6 @@ export const getAvailableUserIds = async () => {
     if (USE_MOCKED_DATA) {
         return USER_MAIN_DATA.map(user => user.id);
     } else {
-        // Pour l'API, on sait qu'il y a uniquement les utilisateurs 12 et 18
         return [12, 18];
     }
 }

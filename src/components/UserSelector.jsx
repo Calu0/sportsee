@@ -21,27 +21,34 @@ const UserSelector = ({ currentUserId, onUserSelect }) => {
         fetchUserIds();
     }, []);
 
+    const handleSelectChange = (event) => {
+        const selectedUserId = parseInt(event.target.value, 10);
+        onUserSelect(selectedUserId);
+    };
+
     if (loading) {
         return <div className="text-center my-5 text-[#74798C]">Chargement des utilisateurs...</div>;
     }
 
     return (
         <div className="my-5 flex flex-col items-center">
-            <p className="mb-2.5 text-base text-[#74798C]">Sélectionner un utilisateur:</p>
-            <div className="flex gap-2.5">
+            <label htmlFor="user-select" className="mb-2.5 text-base text-[#74798C]">
+                Sélectionner un utilisateur:
+            </label>
+            <select
+                id="user-select"
+                value={currentUserId}
+                onChange={handleSelectChange}
+                className="px-4 py-2 bg-white border border-[#E0E0E0] rounded-md text-sm 
+                          focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary
+                          hover:border-[#D0D0D0] transition-all duration-300 cursor-pointer"
+            >
                 {userIds.map(id => (
-                    <button
-                        key={id}
-                        onClick={() => onUserSelect(id)}
-                        className={`px-4 py-2 bg-background-light border ${currentUserId === id
-                            ? 'bg-primary text-white border-primary'
-                            : 'border-[#E0E0E0] hover:bg-gray-100 hover:border-[#D0D0D0]'
-                            } rounded-md text-sm transition-all duration-300`}
-                    >
+                    <option key={id} value={id}>
                         Utilisateur {id}
-                    </button>
+                    </option>
                 ))}
-            </div>
+            </select>
         </div>
     );
 };

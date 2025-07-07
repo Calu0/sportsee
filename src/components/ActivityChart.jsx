@@ -41,7 +41,7 @@ const ActivityChart = ({ data }) => {
     const formattedData = data.map((item, index) => {
         return {
             ...item,
-            day: index + 1 // On utilise simplement l'index + 1 pour afficher 1, 2, 3, etc.
+            day: index + 1
         };
     });
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getUserMainData, getUserActivity, getUserAverageSessions, getUserPerformance, userExists } from '../services/dataService';
 import UserSelector from '../components/UserSelector';
 import ActivityChart from '../components/ActivityChart';
@@ -6,95 +7,102 @@ import AverageSessionsChart from '../components/AverageSessionsChart';
 import PerformanceChart from '../components/PerformanceChart';
 import ScoreChart from '../components/ScoreChart';
 import NutritionCard from '../components/NutritionCard';
-
+import NotFound from './NotFound';
 
 const Profile = () => {
-
-    const [userId, setUserId] = useState(12); // Par défaut, utilisateur 12
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState(() => {
+        return id ? parseInt(id, 10) : 12;
+    });
     const [userData, setUserData] = useState(null);
     const [activityData, setActivityData] = useState(null);
     const [sessionsData, setSessionsData] = useState(null);
     const [performanceData, setPerformanceData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [userNotFound, setUserNotFound] = useState(false);
 
-    // Fonction pour changer d'utilisateur
+    // Mettre à jour userId quand l'ID dans l'URL change
+    useEffect(() => {
+        if (id) {
+            const newUserId = parseInt(id, 10);
+            if (isNaN(newUserId)) {
+                setUserNotFound(true);
+                setLoading(false);
+                return;
+            }
+            if (newUserId !== userId) {
+                setUserId(newUserId);
+            }
+        }
+    }, [id, userId]);
+
     const handleUserChange = (newUserId) => {
         if (newUserId !== userId) {
-            setUserId(newUserId);
-            setLoading(true);
-            setError(null);
-            setUserData(null);
-            setActivityData(null);
-            setSessionsData(null);
-            setPerformanceData(null);
+            navigate(`/profil/${newUserId}`);
         }
     };
 
     useEffect(() => {
+        // Récupérer les données de l'utilisateur
         const fetchData = async () => {
             try {
-                // Vérifier si l'utilisateur existe
                 const userExistsResponse = await userExists(userId);
                 if (!userExistsResponse) {
-                    setError(`Utilisateur avec l'ID ${userId} non trouvé`);
+                    setUserNotFound(true);
                     setLoading(false);
                     return;
                 }
 
-                // Récupérer les données principales de l'utilisateur
                 const userResponse = await getUserMainData(userId);
                 setUserData(userResponse.data);
 
-                // Récupérer les données d'activité
                 const activityResponse = await getUserActivity(userId);
                 setActivityData(activityResponse.data.sessions);
 
-                // Récupérer les données de sessions moyennes
                 const sessionsResponse = await getUserAverageSessions(userId);
                 setSessionsData(sessionsResponse.data.sessions);
 
-                // Récupérer les données de performance
                 const performanceResponse = await getUserPerformance(userId);
                 setPerformanceData(performanceResponse.data);
 
                 setLoading(false);
+                setUserNotFound(false);
+                // console.log("userData", userResponse.data);
+                // console.log("activityData", activityResponse.data);
+                // console.log("sessionsData", sessionsResponse.data);
+                // console.log("performanceData", performanceResponse.data);
             } catch (err) {
-                setError("Erreur lors du chargement des données.");
-                setLoading(false);
                 console.error(err);
+                setUserNotFound(true);
+                setLoading(false);
             }
         };
 
+        // Réinitialiser les états avant de charger
+        setUserNotFound(false);
+        setLoading(true);
         fetchData();
     }, [userId]);
 
-    // Affichage pendant le chargement
+    // console.log("userData", userData);
+    // console.log("activityData", activityData);
+    // console.log("sessionsData", sessionsData);
+    // console.log("performanceData", performanceData);
+
     if (loading) return <div className="flex justify-center items-center h-[50vh] text-xl">Chargement des données...</div>;
 
-    // Affichage en cas d'erreur
-    if (error) return (
-        <div className="flex flex-col items-center justify-center min-h-[50vh] p-5">
-            <div className="text-primary text-xl mb-8">{error}</div>
-            <UserSelector currentUserId={userId} onUserSelect={handleUserChange} />
-        </div>
-    );
+    // Afficher la page NotFound si l'utilisateur n'existe pas ou si l'ID est invalide
+    if (userNotFound) return <NotFound />;
 
     // Affichage en cas d'absence de données
-    if (!userData) return (
-        <div className="flex flex-col items-center justify-center min-h-[50vh] p-5">
-            <div className="text-primary text-xl mb-8">Aucune donnée disponible</div>
-            <UserSelector currentUserId={userId} onUserSelect={handleUserChange} />
-        </div>
-    );
+    if (!userData) return <NotFound />;
 
     // Utiliser todayScore ou score (selon ce qui est disponible dans l'API)
     const score = userData.todayScore || userData.score || 0;
 
     return (
         <div className="px-8 pt-[100px] pb-10">
-            <UserSelector currentUserId={userId} onUserSelect={handleUserChange} />
-
             <div className="mb-10">
                 <h1 className="text-[48px] font-medium mb-5">
                     Bonjour <span className="text-primary">{userData.userInfos.firstName}</span>
@@ -155,6 +163,7 @@ const Profile = () => {
                     />
                 </div>
             </div>
+            <UserSelector currentUserId={userId} onUserSelect={handleUserChange} />
         </div>
     );
 };
