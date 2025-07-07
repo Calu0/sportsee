@@ -1,7 +1,6 @@
 import React from 'react';
 
 const NutritionCard = ({ icon, value, unit, name }) => {
-    // Détermine la classe de couleur Tailwind en fonction du nom du nutriment
     let bgColorClass = '';
     if (name === 'Calories') bgColorClass = 'bg-nutrition-calories';
     else if (name === 'Protéines') bgColorClass = 'bg-nutrition-proteins';

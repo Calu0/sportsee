@@ -68,10 +68,10 @@ const Profile = () => {
 
                 setLoading(false);
                 setUserNotFound(false);
-                // console.log("userData", userResponse.data);
-                // console.log("activityData", activityResponse.data);
-                // console.log("sessionsData", sessionsResponse.data);
-                // console.log("performanceData", performanceResponse.data);
+                console.log("userData", userResponse.data);
+                console.log("activityData", activityResponse.data);
+                console.log("sessionsData", sessionsResponse.data);
+                console.log("performanceData", performanceResponse.data);
             } catch (err) {
                 console.error(err);
                 setUserNotFound(true);
