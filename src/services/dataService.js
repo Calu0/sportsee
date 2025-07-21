@@ -2,9 +2,7 @@ import { apiService } from './apiService';
 import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from './mockData';
 
 // Définir si on utilise les données mockées ou l'API
-const USE_MOCKED_DATA = false;
-
-
+const USE_MOCKED_DATA = true;
 
 
 export const getUserMainData = async (userId) => {

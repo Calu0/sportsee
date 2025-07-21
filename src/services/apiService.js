@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:3000';
 
 // Service pour récupérer les données depuis l'API
 export const apiService = {
-    // Récupère les informations principales de l'utilisateur
     getUserMainData: async (userId) => {
         try {
             const response = await axios.get(`${API_URL}/user/${userId}`);
@@ -15,7 +14,6 @@ export const apiService = {
         }
     },
 
-    // Récupère les données d'activité de l'utilisateur
     getUserActivity: async (userId) => {
         try {
             const response = await axios.get(`${API_URL}/user/${userId}/activity`);
@@ -26,7 +24,6 @@ export const apiService = {
         }
     },
 
-    // Récupère les données de sessions moyennes de l'utilisateur
     getUserAverageSessions: async (userId) => {
         try {
             const response = await axios.get(`${API_URL}/user/${userId}/average-sessions`);
@@ -37,7 +34,6 @@ export const apiService = {
         }
     },
 
-    // Récupère les données de performance de l'utilisateur
     getUserPerformance: async (userId) => {
         try {
             const response = await axios.get(`${API_URL}/user/${userId}/performance`);

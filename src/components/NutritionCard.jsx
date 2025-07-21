@@ -1,11 +1,8 @@
 import React from 'react';
+import { getNutritionBgColor } from '../services/dataFormatter';
 
 const NutritionCard = ({ icon, value, unit, name }) => {
-    let bgColorClass = '';
-    if (name === 'Calories') bgColorClass = 'bg-nutrition-calories';
-    else if (name === 'Protéines') bgColorClass = 'bg-nutrition-proteins';
-    else if (name === 'Glucides') bgColorClass = 'bg-nutrition-carbs';
-    else if (name === 'Lipides') bgColorClass = 'bg-nutrition-lipids';
+    const bgColorClass = getNutritionBgColor(name);
 
     return (
         <div className="w-full h-[124px] bg-background-light rounded-md p-5 flex items-center gap-5 shadow-sm box-border">

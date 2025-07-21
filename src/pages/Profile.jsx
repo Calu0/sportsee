@@ -85,17 +85,12 @@ const Profile = () => {
         fetchData();
     }, [userId]);
 
-    // console.log("userData", userData);
-    // console.log("activityData", activityData);
-    // console.log("sessionsData", sessionsData);
-    // console.log("performanceData", performanceData);
-
     if (loading) return <div className="flex justify-center items-center h-[50vh] text-xl">Chargement des données...</div>;
 
     // Afficher la page NotFound si l'utilisateur n'existe pas ou si l'ID est invalide
     if (userNotFound) return <NotFound />;
 
-    // Affichage en cas d'absence de données
+    // Affichage en cas d'absence de donnée s
     if (!userData) return <NotFound />;
 
     // Utiliser todayScore ou score (selon ce qui est disponible dans l'API)

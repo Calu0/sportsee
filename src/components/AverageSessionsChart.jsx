@@ -1,7 +1,8 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Rectangle } from 'recharts';
+import { formatAverageSessionsData } from '../services/dataFormatter';
 
-// Composant pour le tooltip personnalisé
+
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         return (
@@ -25,36 +26,13 @@ const CustomCursor = ({ points }) => {
             x={x}
             y={0}
             width={2000}
-            height={263}
+            height={500}
         />
     );
 };
 
-// Composant pour le graphique des sessions moyennes
 const AverageSessionsChart = ({ data }) => {
-    // Jours de la semaine pour l'axe X
-    const daysMap = {
-        1: 'L',
-        2: 'M',
-        3: 'M',
-        4: 'J',
-        5: 'V',
-        6: 'S',
-        7: 'D'
-    };
-
-    // Formatage des données pour le graphique
-    const formattedData = data.map(session => ({
-        ...session,
-        dayLetter: daysMap[session.day]
-    }));
-
-
-    const extendedData = [
-        { ...formattedData[0], dayLetter: '', sessionLength: formattedData[0].sessionLength },
-        ...formattedData,
-        { ...formattedData[formattedData.length - 1], dayLetter: '', sessionLength: formattedData[formattedData.length - 1].sessionLength }
-    ];
+    const extendedData = formatAverageSessionsData(data);
 
     return (
         <div className="w-full h-[263px] bg-primary rounded-md overflow-hidden relative">
@@ -81,7 +59,7 @@ const AverageSessionsChart = ({ data }) => {
                         tickFormatter={(value) => value === '' ? '' : value}
                     />
                     <YAxis
-                        hide={true}
+                        hide
                         domain={['dataMin-10', 'dataMax+10']}
                     />
                     <Tooltip

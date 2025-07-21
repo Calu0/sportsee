@@ -1,14 +1,10 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { formatScoreData } from '../services/dataFormatter';
 
 
 const ScoreChart = ({ score }) => {
-
-    const scorePercentage = score * 100;
-    const data = [
-        { name: 'score', value: scorePercentage },
-        { name: 'total', value: 100 - scorePercentage }
-    ];
+    const { scorePercentage, data } = formatScoreData(score);
 
     return (
         <div className="w-full h-[263px] bg-background-light rounded-md p-5 shadow-sm relative">

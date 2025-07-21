@@ -11,10 +11,7 @@ export default {
         'secondary': '#020203',
         'text-color': '#000000',
         'background-light': '#FBFBFB',
-        'nutrition-calories': 'rgba(255, 0, 0, 0.1)',
-        'nutrition-proteins': 'rgba(74, 184, 255, 0.1)',
-        'nutrition-carbs': 'rgba(253, 204, 12, 0.1)',
-        'nutrition-lipids': 'rgba(253, 81, 129, 0.1)',
+
       },
       fontSize: {
         '4xl': '48px',      // Titre principal (Bonjour {name})
