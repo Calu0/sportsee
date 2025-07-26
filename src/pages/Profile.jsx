@@ -91,11 +91,6 @@ const Profile = () => {
     // Affichage en cas d'absence de données
     if (!userData) return <NotFound />;
 
-    // Utiliser todayScore ou score (selon ce qui est disponible dans l'API)
-    const score = userData.todayScore || userData.score || 0;
-    console.log(userData.todayScore, 'UserData.TodayScore')
-    console.log(userData.score, 'UserData.score')
-
     return (
         <div className="px-8 pt-[100px] pb-10">
             <div className="mb-10">
@@ -126,7 +121,7 @@ const Profile = () => {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                            <ScoreChart score={score} />
+                            <ScoreChart score={userData.todayScore} />
                         </div>
                     </div>
                 </div>
