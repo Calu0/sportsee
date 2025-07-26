@@ -4,7 +4,6 @@ import { USER_MAIN_DATA, USER_ACTIVITY, USER_AVERAGE_SESSIONS, USER_PERFORMANCE 
 // Définir si on utilise les données mockées ou l'API
 const USE_MOCKED_DATA = true;
 
-
 export const getUserMainData = async (userId) => {
     if (USE_MOCKED_DATA) {
         const userData = USER_MAIN_DATA.find(user => user.id === userId);
@@ -16,7 +15,6 @@ export const getUserMainData = async (userId) => {
         return apiService.getUserMainData(userId);
     }
 }
-
 
 export const getUserActivity = async (userId) => {
     if (USE_MOCKED_DATA) {
@@ -30,7 +28,6 @@ export const getUserActivity = async (userId) => {
     }
 }
 
-
 export const getUserAverageSessions = async (userId) => {
     if (USE_MOCKED_DATA) {
         const sessionsData = USER_AVERAGE_SESSIONS.find(session => session.userId === userId);
@@ -42,7 +39,6 @@ export const getUserAverageSessions = async (userId) => {
         return apiService.getUserAverageSessions(userId);
     }
 }
-
 
 export const getUserPerformance = async (userId) => {
     if (USE_MOCKED_DATA) {
@@ -56,7 +52,6 @@ export const getUserPerformance = async (userId) => {
     }
 }
 
-
 export const userExists = async (userId) => {
     try {
         if (USE_MOCKED_DATA) {
@@ -69,7 +64,6 @@ export const userExists = async (userId) => {
         return false;
     }
 }
-
 
 export const getAvailableUserIds = async () => {
     if (USE_MOCKED_DATA) {

@@ -11,7 +11,6 @@ const DAYS_MAP = {
     7: 'D'
 };
 
-
 export const formatActivityData = (data) => {
     return data.map((item, index) => ({
         ...item,
@@ -19,16 +18,13 @@ export const formatActivityData = (data) => {
     }));
 };
 
-
 export const formatAverageSessionsData = (data) => {
-    // Formatage avec les lettres des jours
     const formattedData = data.map(session => ({
         ...session,
         dayLetter: DAYS_MAP[session.day] || ''
-
     }));
 
-    // Rajoute des points supplémentaires au début et à la fin pour avoir l'effet visuel de la ligne qui se prolonge
+    // Points supplémentaires pour l'effet visuel de ligne prolongée
     const extendedData = [
         {
             ...formattedData[0],
@@ -46,7 +42,6 @@ export const formatAverageSessionsData = (data) => {
     return extendedData;
 };
 
-
 export const formatPerformanceData = (data, kind) => {
     return data.map(item => {
         const kindName = kind[item.kind];
@@ -56,8 +51,6 @@ export const formatPerformanceData = (data, kind) => {
         };
     }).reverse();
 };
-
-
 
 export const formatScoreData = (score) => {
     const scorePercentage = score * 100;
@@ -70,9 +63,7 @@ export const formatScoreData = (score) => {
     };
 };
 
-
 export const getNutritionBgColor = (nutritionType) => {
-
     if (nutritionType === 'Calories') {
         return 'bg-[#FF00001A]';
     } else if (nutritionType === 'Protéines') {
@@ -84,9 +75,7 @@ export const getNutritionBgColor = (nutritionType) => {
     }
 };
 
-
 export const getActivityLegendLabel = (dataKey) => {
-
     if (dataKey === 'kilogram') {
         return 'Poids (kg)';
     } else if (dataKey === 'calories') {

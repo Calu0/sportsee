@@ -56,6 +56,7 @@ const Profile = () => {
 
                 const userResponse = await getUserMainData(userId);
                 setUserData(userResponse.data);
+                console.log(userResponse)
 
                 const activityResponse = await getUserActivity(userId);
                 setActivityData(activityResponse.data.sessions);
@@ -68,10 +69,7 @@ const Profile = () => {
 
                 setLoading(false);
                 setUserNotFound(false);
-                console.log("userData", userResponse.data);
-                console.log("activityData", activityResponse.data);
-                console.log("sessionsData", sessionsResponse.data);
-                console.log("performanceData", performanceResponse.data);
+
             } catch (err) {
                 console.error(err);
                 setUserNotFound(true);
@@ -90,11 +88,13 @@ const Profile = () => {
     // Afficher la page NotFound si l'utilisateur n'existe pas ou si l'ID est invalide
     if (userNotFound) return <NotFound />;
 
-    // Affichage en cas d'absence de donnée s
+    // Affichage en cas d'absence de données
     if (!userData) return <NotFound />;
 
     // Utiliser todayScore ou score (selon ce qui est disponible dans l'API)
     const score = userData.todayScore || userData.score || 0;
+    console.log(userData.todayScore, 'UserData.TodayScore')
+    console.log(userData.score, 'UserData.score')
 
     return (
         <div className="px-8 pt-[100px] pb-10">

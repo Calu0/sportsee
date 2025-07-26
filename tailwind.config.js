@@ -11,7 +11,6 @@ export default {
         'secondary': '#020203',
         'text-color': '#000000',
         'background-light': '#FBFBFB',
-
       },
       fontSize: {
         '4xl': '48px',      // Titre principal (Bonjour {name})
